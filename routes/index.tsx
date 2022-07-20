@@ -11,7 +11,7 @@ export const handler: Handlers = {
 
 export default function Home({ data }: PageProps) {
   const clientId = data?.clientId;
-  console.log(clientId);
+  
   return (
     <div class={tw`min-h-screen grid place-items-center`}>
       <a
