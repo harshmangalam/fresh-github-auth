@@ -10,6 +10,8 @@ export const handler: Handlers = {
 };
 
 export default function Home({ data }: PageProps) {
+
+  // github client id from environment variable 
   const clientId = data?.clientId;
   
   return (

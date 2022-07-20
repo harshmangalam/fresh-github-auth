@@ -5,9 +5,12 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { clientId, clientSecret } from "../utils/config.ts";
 export const handler: Handlers = {
   async GET(req, ctx) {
+    // get `code` query string value from url provided by github 
     const url = new URL(req.url);
     const token = url.searchParams.get("code");
 
+
+    // get access_token from github 
     const tokenResponse = await fetch(
       `https://github.com/login/oauth/access_token?client_id=${clientId}&client_secret=${clientSecret}&code=${token}`,
       {
@@ -20,9 +23,12 @@ export const handler: Handlers = {
     );
 
     const jsonResponse = await tokenResponse.json();
+
+    // create token using access_token and tokeb_type i.e. "bearer Token"
     const accessToken =
       `${jsonResponse.token_type} ${jsonResponse.access_token}`;
 
+      // fetch user details using access_token 
     const userResponse = await fetch("https://api.github.com/user", {
       method: "get",
 
